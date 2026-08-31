@@ -1,4 +1,12 @@
-export const productGroups = [
+export type NavLink = {
+  label: string;
+  href: string;
+};
+
+export const productGroups: {
+  title: string;
+  items: NavLink[];
+}[] = [
   {
     title: "Structural",
     items: [
@@ -36,7 +44,7 @@ export const productGroups = [
       { label: "Ax3000 MEP", href: "/#products" },
     ],
   },
-] as const;
+];
 
 export const featuredProducts = [
   { label: "STAAD.Pro", href: "/#products", description: "Structural analysis and design" },
