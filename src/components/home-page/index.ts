@@ -1,0 +1,12 @@
+export { HomePage } from "./home-page";
+export { Header } from "./header";
+export { Hero } from "./hero";
+export { About } from "./about";
+export { Products } from "./products";
+export { Stats } from "./stats";
+export { Solutions } from "./solutions";
+export { Partners } from "./partners";
+export { Resources } from "./resources";
+export { Cta } from "./cta";
+export { Footer } from "./footer";
+export { FloatingContact } from "./floating-contact";
