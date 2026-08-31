@@ -6,6 +6,7 @@ export function SectionHeading({
   description,
   action,
   className,
+  labelClassName,
   dark = false,
 }: {
   label: string;
@@ -13,6 +14,7 @@ export function SectionHeading({
   description?: string;
   action?: React.ReactNode;
   className?: string;
+  labelClassName?: string;
   dark?: boolean;
 }) {
   return (
@@ -23,7 +25,12 @@ export function SectionHeading({
       )}
     >
       <div className="max-w-3xl">
-        <p className="text-[11px] font-semibold tracking-[0.18em] text-brand uppercase">
+        <p
+          className={cn(
+            "text-[11px] font-semibold tracking-[0.18em] text-brand uppercase",
+            labelClassName
+          )}
+        >
           {label}
         </p>
         <h2

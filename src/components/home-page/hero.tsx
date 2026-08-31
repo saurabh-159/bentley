@@ -9,6 +9,13 @@ import { ArrowRight } from "lucide-react";
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=2400&q=80";
 
+const taglines = [
+  "Your trusted technology partner",
+  "Authorized Bentley channel partner",
+  "AEC digital transformation",
+  "Engineering software experts",
+] as const;
+
 const newsItems = [
   {
     label: "Partner news",
@@ -56,14 +63,24 @@ const itemVariants = {
  */
 export function Hero() {
   const reduceMotion = useReducedMotion();
+  const [taglineIndex, setTaglineIndex] = useState(0);
   const [newsIndex, setNewsIndex] = useState(0);
+  const tagline = taglines[taglineIndex];
   const news = newsItems[newsIndex];
 
   useEffect(() => {
     if (reduceMotion) return;
     const id = window.setInterval(() => {
+      setTaglineIndex((index) => (index + 1) % taglines.length);
+    }, 2800);
+    return () => window.clearInterval(id);
+  }, [reduceMotion]);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = window.setInterval(() => {
       setNewsIndex((index) => (index + 1) % newsItems.length);
-    }, 5600);
+    }, 2800);
     return () => window.clearInterval(id);
   }, [reduceMotion]);
 
@@ -108,8 +125,33 @@ export function Hero() {
             variants={itemVariants}
             className="mb-5 flex items-center gap-3 text-xs font-medium tracking-[0.22em] text-white/80 uppercase"
           >
-            <span className="inline-block h-px w-8 bg-brand" />
-            Your trusted technology partner
+            <span className="inline-block h-px w-8 shrink-0 bg-brand" />
+            <span
+              aria-live="polite"
+              className="relative grid min-w-0 overflow-hidden"
+            >
+              {taglines.map((line) => (
+                <span
+                  key={line}
+                  className="invisible col-start-1 row-start-1"
+                  aria-hidden
+                >
+                  {line}
+                </span>
+              ))}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={tagline}
+                  initial={reduceMotion ? false : { y: "160%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  exit={reduceMotion ? undefined : { y: "-160%", opacity: 0 }}
+                  transition={{ duration: 0.7, ease: easeOut }}
+                  className="col-start-1 row-start-1"
+                >
+                  {tagline}
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </motion.p>
 
           <motion.h1
@@ -156,10 +198,10 @@ export function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={news.label}
-              initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: easeOut }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -22 }}
+              transition={{ duration: 0.5, ease: easeOut }}
               className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
             >
               <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">

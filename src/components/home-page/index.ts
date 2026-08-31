@@ -1,5 +1,6 @@
 export { HomePage } from "./home-page";
 export { Header } from "./header";
+export { PageShell } from "./page-shell";
 export { Hero } from "./hero";
 export { About } from "./about";
 export { Products } from "./products";

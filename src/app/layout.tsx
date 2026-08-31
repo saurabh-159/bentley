@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
 import { Footer } from "@/components/home-page/footer";
 import { Header } from "@/components/home-page/header";
+import { PageShell } from "@/components/home-page/page-shell";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
@@ -32,11 +33,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
         <Providers>
-          <div className="flex min-h-full flex-1 flex-col">
-            <Header />
-            <div className="flex flex-1 flex-col">{children}</div>
-            <Footer />
-          </div>
+          <PageShell>
+            <div className="flex min-h-full flex-1 flex-col">
+              <Header />
+              <div className="flex flex-1 flex-col">{children}</div>
+              <Footer />
+            </div>
+          </PageShell>
         </Providers>
       </body>
     </html>
