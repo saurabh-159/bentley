@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=2400&q=80";
+const HERO_VIDEO = "https://assets.mixkit.co/videos/28790/28790-720.mp4";
+const HERO_POSTER =
+  "https://assets.mixkit.co/videos/28790/28790-thumb-720-0.jpg";
 
 const taglines = [
   "Your trusted technology partner",
@@ -59,10 +59,11 @@ const itemVariants = {
 /**
  * Hero
  * Content: Synergic — "Your Trusted Technology Partner", AEC digital transformation in India
- * UI: Bentley — full-bleed cinematic image, oversized headline, one CTA, optional news strip
+ * UI: Bentley — full-bleed cinematic video, oversized headline, one CTA, optional news strip
  */
 export function Hero() {
   const reduceMotion = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [taglineIndex, setTaglineIndex] = useState(0);
   const [newsIndex, setNewsIndex] = useState(0);
   const tagline = taglines[taglineIndex];
@@ -84,6 +85,19 @@ export function Hero() {
     return () => window.clearInterval(id);
   }, [reduceMotion]);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (reduceMotion) {
+      video.pause();
+      return;
+    }
+
+    video.muted = true;
+    void video.play().catch(() => {});
+  }, [reduceMotion]);
+
   return (
     <section
       aria-labelledby="hero-heading"
@@ -91,18 +105,23 @@ export function Hero() {
     >
       <motion.div
         className="absolute inset-0"
-        initial={reduceMotion ? false : { scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: reduceMotion ? 0 : 18, ease: "linear" }}
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reduceMotion ? 0 : 1.1, ease: "easeOut" }}
       >
-        <Image
-          src={HERO_IMAGE}
-          alt="Aerial view of a highway interchange representing modern infrastructure"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+        <video
+          ref={videoRef}
+          autoPlay={!reduceMotion}
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={HERO_POSTER}
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
       </motion.div>
 
       <div
