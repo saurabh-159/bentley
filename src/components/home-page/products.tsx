@@ -20,6 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Reveal, RevealItem, RevealStagger } from "./reveal";
 import { SectionHeading } from "./section-heading";
+import { categoryPath, productPath, type ProductCategory } from "@/lib/catalog";
 
 type Category = "All" | "Structural" | "Civil" | "Water & build" | "CAD & MEP";
 
@@ -109,6 +110,13 @@ const categories: {
   { id: "CAD & MEP", icon: Box },
 ];
 
+const categoryHrefs: Record<Exclude<Category, "All">, ProductCategory> = {
+  Structural: "Structural analysis and detailing",
+  Civil: "Civil and transportation",
+  "Water & build": "Water and construction",
+  "CAD & MEP": "CAD and MEP",
+};
+
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
 function countFor(id: Category) {
@@ -138,13 +146,22 @@ export function Products() {
             title="Engineering tools for every discipline"
             description="From structural analysis to roads, water, CAD, and construction sequencing — licensed and supported in India."
             action={
-              <Link
-                href="/#contact"
-                className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand/80"
-              >
-                Explore software
-                <ArrowRight className="size-4" />
-              </Link>
+              <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
+                <Link
+                  href="/products"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand/80"
+                >
+                  Explore software
+                  <ArrowRight className="size-4" />
+                </Link>
+                <Link
+                  href="/categories"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Browse categories
+                  <ArrowRight className="size-4" />
+                </Link>
+              </div>
             }
           />
         </Reveal>
@@ -209,10 +226,18 @@ export function Products() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
                   transition={{ duration: 0.25, ease: easeOut }}
-                  className="inline-block"
+                  className="inline-flex items-center gap-3"
                 >
                   {visible.length}{" "}
                   {visible.length === 1 ? "product" : "products"}
+                  {category !== "All" ? (
+                    <Link
+                      href={categoryPath(categoryHrefs[category])}
+                      className="normal-case tracking-normal text-brand hover:text-brand/80"
+                    >
+                      View category
+                    </Link>
+                  ) : null}
                 </motion.span>
               </AnimatePresence>
             </p>
@@ -272,7 +297,7 @@ function ProductTile({
       className="h-full"
     >
       <Link
-        href="/#contact"
+        href={productPath(product.name)}
         className={cn(
           "group relative block h-full overflow-hidden bg-muted",
           tall ? "aspect-[2/1] lg:aspect-[21/9]" : "aspect-[16/10]"
@@ -346,7 +371,7 @@ function ProductTile({
                 : "translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
             )}
           >
-            Enquire
+            View product
             <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>

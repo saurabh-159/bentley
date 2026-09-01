@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   companyLinks,
+  categoryLinks,
   contact,
   productGroups,
   solutions,
@@ -105,10 +106,10 @@ export function Footer() {
 
         <div className="lg:col-span-2">
             <p className="text-[11px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-            Products
+            Categories
           </p>
           <ul className="mt-4 space-y-2.5">
-            {productLinks.map((item) => (
+            {categoryLinks.map((item) => (
               <li key={item.label}>
                 <Link
                   href={item.href}
@@ -118,6 +119,37 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/categories"
+                className="text-sm font-medium text-brand transition-colors hover:text-brand/80"
+              >
+                All categories
+              </Link>
+            </li>
+          </ul>
+          <p className="mt-8 text-[11px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+            Products
+          </p>
+          <ul className="mt-4 space-y-2.5">
+            {productLinks.slice(0, 5).map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className="text-sm text-foreground/70 transition-colors hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/products"
+                className="text-sm font-medium text-brand transition-colors hover:text-brand/80"
+              >
+                All products
+              </Link>
+            </li>
           </ul>
         </div>
 

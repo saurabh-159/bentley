@@ -143,3 +143,9 @@
     color-scheme: light;
   }
 }
+
+.about-hero-label-swiper.swiper,
+.about-hero-label-swiper .swiper-wrapper,
+.about-hero-label-swiper .swiper-slide {
+  height: 100% !important;
+}

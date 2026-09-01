@@ -215,13 +215,21 @@ export function About() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: 0.38, ease: easeOut }}
             >
-              <Link
-                href="/#contact"
-                className="group mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand/80"
-              >
-                Talk with a consultant
-                <ArrowRight className="size-4 transition-transform duration-300 ease-out group-hover:translate-x-1" />
-              </Link>
+              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                <Link
+                  href="/about"
+                  className="group inline-flex items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand/80"
+                >
+                  Read our story
+                  <ArrowRight className="size-4 transition-transform duration-300 ease-out group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/#contact"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Talk with a consultant
+                </Link>
+              </div>
             </motion.div>
           </div>
         </div>

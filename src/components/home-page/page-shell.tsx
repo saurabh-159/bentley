@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, useReducedMotion } from "motion/react";
 import { PageLoader } from "./page-loader";
 
@@ -8,12 +9,14 @@ const HOLD_MS = 2600;
 const EXIT_MS = 550;
 
 export function PageShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const reduceMotion = useReducedMotion();
-  const [showLoader, setShowLoader] = useState(true);
-  const [showPage, setShowPage] = useState(false);
+  const skipIntro = pathname !== "/";
+  const [showLoader, setShowLoader] = useState(!skipIntro);
+  const [showPage, setShowPage] = useState(skipIntro);
 
   useEffect(() => {
-    if (reduceMotion) {
+    if (reduceMotion || skipIntro) {
       setShowLoader(false);
       setShowPage(true);
       return;
@@ -31,7 +34,7 @@ export function PageShell({ children }: { children: React.ReactNode }) {
       window.clearTimeout(hideLoader);
       window.clearTimeout(revealPage);
     };
-  }, [reduceMotion]);
+  }, [reduceMotion, skipIntro]);
 
   useEffect(() => {
     if (showPage) return;

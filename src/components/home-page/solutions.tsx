@@ -21,6 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
+import { productPath } from "@/lib/catalog";
 
 const industries = [
   {
@@ -289,7 +290,7 @@ export function Solutions() {
                       {current.software.map((name) => (
                         <Link
                           key={name}
-                          href="/#products"
+                          href={productPath(name)}
                           className="border border-white/25 bg-white/5 px-2 py-0.5 text-[10px] font-semibold tracking-[0.12em] text-white/90 uppercase transition-colors hover:border-brand hover:bg-brand hover:text-brand-foreground"
                         >
                           {name}

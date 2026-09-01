@@ -1,3 +1,11 @@
+import {
+  categoryCount,
+  categoryMeta,
+  categoryPath,
+  productCategories,
+  productPath,
+} from "@/lib/catalog";
+
 export type NavLink = {
   label: string;
   href: string;
@@ -10,52 +18,68 @@ export const productGroups: {
   {
     title: "Structural",
     items: [
-      { label: "STAAD.Pro", href: "/#products" },
-      { label: "STAAD.Pro Advanced", href: "/#products" },
-      { label: "Structural WorkSuite", href: "/#products" },
-      { label: "STAAD Foundation Advanced", href: "/#products" },
+      { label: "STAAD.Pro", href: productPath("STAAD.Pro") },
+      { label: "STAAD.Pro Advanced", href: productPath("STAAD.Pro Advanced") },
+      { label: "Structural WorkSuite", href: productPath("Structural WorkSuite") },
+      { label: "STAAD Foundation Advanced", href: productPath("STAAD Foundation Advanced") },
     ],
   },
   {
     title: "Civil & Transport",
     items: [
-      { label: "OpenRoads Designer", href: "/#products" },
-      { label: "OpenRail Designer", href: "/#products" },
-      { label: "OpenBridge Designer", href: "/#products" },
-      { label: "Civil WorkSuite", href: "/#products" },
-      { label: "Plateia", href: "/#products" },
-      { label: "Ferrovia", href: "/#products" },
+      { label: "OpenRoads Designer", href: productPath("OpenRoads Designer") },
+      { label: "OpenRail Designer", href: productPath("OpenRail Designer") },
+      { label: "OpenBridge Designer", href: productPath("OpenBridge Designer") },
+      { label: "Civil WorkSuite", href: productPath("Civil WorkSuite") },
+      { label: "Plateia", href: productPath("Plateia") },
+      { label: "Ferrovia", href: productPath("Ferrovia") },
     ],
   },
   {
     title: "Water & Construction",
     items: [
-      { label: "WaterGEMS", href: "/#products" },
-      { label: "Urbano", href: "/#products" },
-      { label: "SYNCHRO", href: "/#products" },
+      { label: "WaterGEMS", href: productPath("WaterGEMS") },
+      { label: "Urbano", href: productPath("Urbano") },
+      { label: "SYNCHRO", href: productPath("SYNCHRO") },
     ],
   },
   {
     title: "CAD & MEP",
     items: [
-      { label: "BricsCAD Pro", href: "/#products" },
-      { label: "BricsCAD Lite", href: "/#products" },
-      { label: "GstarCAD", href: "/#products" },
-      { label: "Ax3000 MEP", href: "/#products" },
+      { label: "BricsCAD Pro", href: productPath("BricsCAD Pro") },
+      { label: "BricsCAD Lite", href: productPath("BricsCAD Lite") },
+      { label: "GstarCAD", href: productPath("GstarCAD") },
+      { label: "Ax3000 MEP", href: productPath("Ax3000 MEP") },
     ],
   },
 ];
 
+export const categoryNav = productCategories.map((category, index) => ({
+  label: categoryMeta[category].shortName,
+  href: categoryPath(category),
+  description: categoryMeta[category].tagline,
+  image: categoryMeta[category].image,
+  imageAlt: categoryMeta[category].imageAlt,
+  count: categoryCount(category),
+  products: productGroups[index]?.items.slice(0, 4) ?? [],
+}));
+
+export const categoryLinks = categoryNav.map(({ label, href, description }) => ({
+  label,
+  href,
+  description,
+}));
+
 export const featuredProducts = [
-  { label: "STAAD.Pro", href: "/#products", description: "Structural analysis and design" },
-  { label: "SYNCHRO", href: "/#products", description: "4D construction planning" },
-  { label: "WaterGEMS", href: "/#products", description: "Water distribution modeling" },
-  { label: "OpenRoads Designer", href: "/#products", description: "Civil and road design" },
-  { label: "BricsCAD Pro", href: "/#products", description: "DWG-based CAD drafting" },
-  { label: "Structural WorkSuite", href: "/#products", description: "Complete structural toolkit" },
-  { label: "STAAD Foundation Advanced", href: "/#products", description: "Foundation analysis and design" },
-  { label: "OpenRail Designer", href: "/#products", description: "Rail corridor design" },
-  { label: "Ax3000 MEP", href: "/#products", description: "Building services design" },
+  { label: "STAAD.Pro", href: productPath("STAAD.Pro"), description: "Structural analysis and design" },
+  { label: "SYNCHRO", href: productPath("SYNCHRO"), description: "4D construction planning" },
+  { label: "WaterGEMS", href: productPath("WaterGEMS"), description: "Water distribution modeling" },
+  { label: "OpenRoads Designer", href: productPath("OpenRoads Designer"), description: "Civil and road design" },
+  { label: "BricsCAD Pro", href: productPath("BricsCAD Pro"), description: "DWG-based CAD drafting" },
+  { label: "Structural WorkSuite", href: productPath("Structural WorkSuite"), description: "Complete structural toolkit" },
+  { label: "STAAD Foundation Advanced", href: productPath("STAAD Foundation Advanced"), description: "Foundation analysis and design" },
+  { label: "OpenRail Designer", href: productPath("OpenRail Designer"), description: "Rail corridor design" },
+  { label: "Ax3000 MEP", href: productPath("Ax3000 MEP"), description: "Building services design" },
 ] as const;
 
 export const productExpandLinks = [
@@ -70,9 +94,14 @@ export const productExpandLinks = [
     href: "/#resources",
   },
   {
+    label: "Browse categories",
+    description: "Software grouped by discipline",
+    href: "/categories",
+  },
+  {
     label: "Software catalog",
     description: "CAD and engineering apps for India",
-    href: "/#products",
+    href: "/products",
   },
   {
     label: "Professional services",
@@ -135,7 +164,7 @@ export const solutionFeature = {
 } as const;
 
 export const companyLinks = [
-  { label: "About us", href: "/#about" },
+  { label: "About us", href: "/about" },
   { label: "Career", href: "/#career" },
   { label: "Resource center", href: "/#resources" },
   { label: "Contact us", href: "/#contact" },

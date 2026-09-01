@@ -20,19 +20,19 @@ const newsItems = [
   {
     label: "Partner news",
     title: "Authorized Bentley channel partner for India's AEC sector",
-    href: "/#about",
+    href: "/about",
     cta: "Learn more",
   },
   {
     label: "Software",
     title: "STAAD.Pro, OpenRoads, and SYNCHRO available through Synergic",
-    href: "/#products",
+    href: "/products",
     cta: "Explore software",
   },
   {
     label: "Since 2008",
     title: "1,900+ customers across architecture, civil, and mechanical",
-    href: "/#about",
+    href: "/about",
     cta: "About us",
   },
 ] as const;
@@ -196,7 +196,7 @@ export function Hero() {
               whileTap={reduceMotion ? undefined : { scale: 0.97 }}
             >
               <Link
-                href="/#products"
+                href="/products"
                 className="inline-flex h-12 items-center gap-2 bg-brand px-7 text-sm font-semibold tracking-[0.14em] text-brand-foreground uppercase transition-colors hover:bg-brand/90"
               >
                 Explore software
