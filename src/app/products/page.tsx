@@ -4,7 +4,7 @@ import { ProductsPage } from "@/components/products-page/products-page";
 export const metadata: Metadata = {
   title: "Products | Synergic Information Solutions",
   description:
-    "Browse STAAD.Pro, OpenRoads, SYNCHRO, WaterGEMS, BricsCAD, and more engineering software licensed and supported in India.",
+    "Browse Bentley Systems, BricsCAD, GstarCAD, and AX3000 MEP — four technology foundations licensed and supported in India.",
 };
 
 export default function ProductsRoute() {

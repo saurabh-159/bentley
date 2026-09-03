@@ -10,39 +10,36 @@ import { SectionHeading } from "./section-heading";
 
 const articles = [
   {
-    category: "Product",
+    category: "CAD Guide",
     date: "12 Aug 2026",
     read: "6 min",
-    title: "Why Indian structural teams still start with STAAD.Pro",
-    excerpt:
-      "From high-rises to industrial frames, STAAD.Pro is still the first model Indian structural desks open — and the one they hand to site.",
+    title: "BricsCAD vs GstarCAD: Which CAD Platform Is Right for You?",
+    excerpt: "Compare compatibility, workflows and selection considerations.",
     image:
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "High-rise structural grid",
+    imageAlt: "CAD workstation with engineering drawings",
     featured: true,
   },
   {
-    category: "Insight",
+    category: "BIM Guide",
     date: "28 Jul 2026",
     read: "5 min",
-    title: "From corridor to construction: OpenRoads on Indian highways",
-    excerpt:
-      "How alignment, drainage, and deliverables stay in one model when the corridor leaves the office.",
+    title: "BIM Software Selection Guide for Engineering Firms",
+    excerpt: "A practical framework for evaluating BIM technology.",
     image:
       "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Highway corridor at dusk",
+    imageAlt: "BIM model of a commercial building",
     featured: false,
   },
   {
-    category: "Guide",
+    category: "MEP Guide",
     date: "4 Jun 2026",
     read: "4 min",
-    title: "Pipe networks without the detour: Urbano for water and sewer",
-    excerpt:
-      "A shorter path from survey to network model for municipal water and sewer teams.",
+    title: "Choosing MEP Design Software",
+    excerpt: "Key capabilities to evaluate before selecting a platform.",
     image:
       "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Water infrastructure and treatment plant",
+    imageAlt: "MEP systems in a building services plant",
     featured: false,
   },
 ] as const;
@@ -51,7 +48,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 /**
  * Resource center
- * Content: Synergic — STAAD.Pro, OpenRoads, Urbano / Civil 3D articles
+ * Content: CAD, BIM, and MEP selection guides
  * UI: Bentley — featured story + companion cards, hover motion, category + date
  */
 export function Resources() {
@@ -64,9 +61,9 @@ export function Resources() {
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:py-12">
         <Reveal>
           <SectionHeading
-            label="Resource center"
-            title="News, insights, and more"
-            description="Field notes from Indian desks — STAAD.Pro, OpenRoads, Urbano, and the work around them."
+            label="Resources"
+            title="Engineering Knowledge Hub"
+            description="Useful content for people researching technology before they are ready to speak with a vendor."
             action={
               <Link
                 href="/#resources"
@@ -169,7 +166,7 @@ function FeaturedCard({
             {article.excerpt}
           </p>
           <span className="mt-3 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] text-white uppercase">
-            Read article
+            Read guide
             <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>
@@ -244,7 +241,7 @@ function CompanionCard({
               "opacity-80 sm:translate-y-1.5 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100"
             )}
           >
-            Read article
+            Read guide
             <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>

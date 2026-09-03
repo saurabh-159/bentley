@@ -60,7 +60,7 @@ export const categoryMeta: Record<
     shortName: "CAD & MEP",
     tagline: "Drafting and building services",
     description:
-      "BricsCAD, GstarCAD, and Ax3000 MEP for drafting, 3D modelling, and building services — familiar CAD without lock-in.",
+      "BricsCAD, GstarCAD, and AX3000 MEP for drafting, 3D modelling, and building services — familiar CAD without lock-in.",
     image:
       "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=2400&q=80",
     imageAlt: "Engineer working at a CAD workstation",
@@ -105,7 +105,65 @@ export type CatalogProduct = {
   highlights: string[];
 };
 
+export const softwarePortfolio = [
+  {
+    name: "Bentley Systems",
+    category: "Infrastructure Engineering",
+    line: "Infrastructure engineering, asset management and digital project delivery technology.",
+    featured: true,
+  },
+  {
+    name: "BricsCAD",
+    category: "CAD / BIM",
+    line: "Professional CAD and design technology for modern engineering workflows.",
+    featured: true,
+  },
+  {
+    name: "GstarCAD",
+    category: "Professional CAD",
+    line: "DWG-based CAD solutions for architecture, engineering and design organizations.",
+    featured: false,
+  },
+  {
+    name: "AX3000 MEP",
+    category: "MEP Engineering",
+    line: "Engineering software for MEP design and building services workflows.",
+    featured: false,
+  },
+] as const;
+
+const productAliases: Record<string, string> = {
+  BricsCAD: "bricscad-pro",
+  "BricsCAD Pro": "bricscad-pro",
+  AX3000: "ax3000-mep",
+  "AX3000 MEP": "ax3000-mep",
+  "Ax3000 MEP": "ax3000-mep",
+};
+
 export const catalog: CatalogProduct[] = [
+  {
+    slug: "bentley-systems",
+    name: "Bentley Systems",
+    vendor: "Bentley Systems",
+    category: "Civil and transportation",
+    industries: ["Structural", "Transportation", "Water", "Construction", "Buildings", "Energy"],
+    workflows: ["Analysis", "Design", "BIM", "Construction"],
+    line: "Infrastructure engineering, asset management and digital project delivery technology.",
+    description:
+      "Infrastructure engineering, asset management and digital project delivery technology — from structural analysis and civil design through construction sequencing, licensed and supported in India through Synergic.",
+    price: "Contact us",
+    featured: true,
+    image:
+      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1400&q=80",
+    hoverImage:
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80",
+    imageAlt: "Infrastructure corridor representing Bentley engineering software",
+    highlights: [
+      "Infrastructure engineering across roads, rail, buildings, and water",
+      "Asset management and digital project delivery on one platform",
+      "Licensed and supported in India through Synergic",
+    ],
+  },
   {
     slug: "staad-pro",
     name: "STAAD.Pro",
@@ -407,14 +465,14 @@ export const catalog: CatalogProduct[] = [
   },
   {
     slug: "bricscad-pro",
-    name: "BricsCAD Pro",
+    name: "BricsCAD",
     vendor: "Bricsys",
     category: "CAD and MEP",
     industries: ["Buildings", "Energy"],
-    workflows: ["CAD drafting", "Design"],
-    line: "Professional 2D and 3D CAD, without compromise",
+    workflows: ["CAD drafting", "Design", "BIM"],
+    line: "Professional CAD and design technology for modern engineering workflows.",
     description:
-      "A DWG-native CAD platform for drafting and 3D modelling — a strong alternative for teams that want familiar CAD without lock-in.",
+      "Professional CAD and design technology for modern engineering workflows — a DWG-native platform for 2D drafting, 3D modelling, and BIM production, licensed and supported in India.",
     price: "Contact us",
     featured: true,
     image:
@@ -457,12 +515,12 @@ export const catalog: CatalogProduct[] = [
     vendor: "Gstarsoft",
     category: "CAD and MEP",
     industries: ["Buildings"],
-    workflows: ["CAD drafting"],
-    line: "Cost-effective DWG CAD for production",
+    workflows: ["CAD drafting", "Design"],
+    line: "DWG-based CAD solutions for architecture, engineering and design organizations.",
     description:
-      "A DWG-compatible CAD application for architecture and engineering offices that need dependable drafting at scale.",
+      "DWG-based CAD solutions for architecture, engineering and design organizations — dependable production drafting at scale, licensed and supported in India.",
     price: "Contact us",
-    featured: false,
+    featured: true,
     image:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=80",
     hoverImage:
@@ -476,16 +534,16 @@ export const catalog: CatalogProduct[] = [
   },
   {
     slug: "ax3000-mep",
-    name: "Ax3000 MEP",
+    name: "AX3000 MEP",
     vendor: "Cadline",
     category: "CAD and MEP",
     industries: ["Buildings"],
     workflows: ["Design", "BIM"],
-    line: "Building services, energy, and VR workflows",
+    line: "Engineering software for MEP design and building services workflows.",
     description:
-      "MEP design for HVAC, electrical, and plumbing with energy analysis and visualisation for building services teams.",
+      "Engineering software for MEP design and building services workflows — HVAC, electrical, and plumbing with energy analysis and visualisation for building-services teams.",
     price: "Contact us",
-    featured: false,
+    featured: true,
     image:
       "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1400&q=80",
     hoverImage:
@@ -500,8 +558,13 @@ export const catalog: CatalogProduct[] = [
 ];
 
 export function productPath(nameOrSlug: string) {
+  const resolved = productAliases[nameOrSlug] ?? nameOrSlug;
   const match = catalog.find(
-    (item) => item.slug === nameOrSlug || item.name === nameOrSlug
+    (item) =>
+      item.slug === resolved ||
+      item.name === resolved ||
+      item.slug === nameOrSlug ||
+      item.name === nameOrSlug
   );
   return match ? `/products/${match.slug}` : "/products";
 }
@@ -527,6 +590,16 @@ export function getProduct(slug: string) {
 export function getRelatedProducts(slug: string, limit = 3) {
   const product = getProduct(slug);
   if (!product) return [];
+  if (product.slug === "bentley-systems") {
+    return catalog
+      .filter(
+        (item) =>
+          item.vendor === "Bentley Systems" &&
+          item.slug !== slug &&
+          item.featured
+      )
+      .slice(0, limit);
+  }
   return catalog
     .filter((item) => item.slug !== slug && item.category === product.category)
     .slice(0, limit);

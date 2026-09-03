@@ -10,29 +10,29 @@ const HERO_IMAGE =
 
 const slides = [
   {
-    title: "All products",
+    title: "Explore our software portfolio",
     description:
-      "Synergic offers trusted solutions for engineers and infrastructure professionals. Whether designing, constructing, or operating, we have your solution — licensed and supported in India.",
+      "Four technology foundations. One independent, engineering-focused approach to helping you choose what fits — licensed and supported in India.",
   },
   {
-    title: "Structural analysis",
+    title: "Bentley Systems",
     description:
-      "STAAD.Pro and Structural WorkSuite for steel, concrete, timber, and complex frames — analysis and design licensed and supported in India.",
+      "Infrastructure engineering, asset management and digital project delivery technology.",
   },
   {
-    title: "Civil and transportation",
+    title: "BricsCAD",
     description:
-      "OpenRoads, OpenRail, and OpenBridge for highways, rail, and corridor modelling — from survey through construction-ready plans.",
+      "Professional CAD and design technology for modern engineering workflows.",
   },
   {
-    title: "Water and construction",
+    title: "GstarCAD",
     description:
-      "WaterGEMS and SYNCHRO for water networks and 4D construction planning so teams can design, sequence, and deliver with confidence.",
+      "DWG-based CAD solutions for architecture, engineering and design organizations.",
   },
   {
-    title: "CAD and MEP",
+    title: "AX3000 MEP",
     description:
-      "BricsCAD, GstarCAD, and Ax3000 MEP for drafting, 3D modelling, and building services — familiar CAD without lock-in.",
+      "Engineering software for MEP design and building services workflows.",
   },
 ] as const;
 

@@ -12,7 +12,7 @@ import {
   companyLinks,
   categoryLinks,
   contact,
-  productGroups,
+  featuredProducts,
   solutions,
 } from "./nav-data";
 import { SiteLogo } from "./site-logo";
@@ -75,7 +75,7 @@ export function Footer() {
     event.currentTarget.reset();
   }
 
-  const productLinks = productGroups.flatMap((group) => group.items).slice(0, 8);
+  const productLinks = featuredProducts;
 
   return (
     <footer id="contact" className="border-t border-border bg-background text-foreground">
@@ -132,7 +132,7 @@ export function Footer() {
             Products
           </p>
           <ul className="mt-4 space-y-2.5">
-            {productLinks.slice(0, 5).map((item) => (
+            {productLinks.map((item) => (
               <li key={item.label}>
                 <Link
                   href={item.href}

@@ -1,80 +1,191 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import { Compass, Target } from "lucide-react";
-import { Reveal, RevealItem, RevealStagger } from "@/components/home-page/reveal";
+import { useEffect, useRef } from "react";
+import { animate, motion, useInView, useReducedMotion } from "motion/react";
+import { RevealItem, RevealStagger } from "@/components/home-page/reveal";
 import { aboutViewport } from "./in-view";
 
-const values = [
-  {
-    label: "Our vision",
-    icon: Compass,
-    quote:
-      "We supply CAD software and efficient solutions to enable customers to be at the top of their industries.",
-  },
-  {
-    label: "Our mission",
-    icon: Target,
-    quote:
-      "Gain the trust of our clients with industry knowledge, help them stay ahead of the competition, and handle future challenges with improved and optimised solutions.",
-  },
+const facts = [
+  { kind: "count", to: 2008, grouped: false, suffix: "", label: "Founded" },
+  { kind: "count", to: 1900, grouped: true, suffix: "+", label: "Customers" },
+  { kind: "text", display: "Hyd", label: "Head office" },
 ] as const;
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
+
+function CountUp({
+  to,
+  grouped,
+  suffix,
+}: {
+  to: number;
+  grouped: boolean;
+  suffix: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const format = (value: number) => {
+      const rounded = Math.round(value);
+      const body = grouped ? rounded.toLocaleString("en-US") : String(rounded);
+      return `${body}${suffix}`;
+    };
+
+    if (reduceMotion || !inView) {
+      node.textContent = reduceMotion ? format(to) : format(0);
+      return;
+    }
+
+    const controls = animate(0, to, {
+      duration: 1.7,
+      ease: easeOut,
+      onUpdate: (latest) => {
+        node.textContent = format(latest);
+      },
+    });
+
+    return () => controls.stop();
+  }, [grouped, inView, reduceMotion, suffix, to]);
+
+  const final = grouped
+    ? `${to.toLocaleString("en-US")}${suffix}`
+    : `${to}${suffix}`;
+
+  return (
+    <span ref={ref} className="tabular-nums" aria-label={final}>
+      0{suffix}
+    </span>
+  );
+}
 
 export function AboutValues() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="border-t border-border bg-muted/50">
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-        <Reveal viewport={aboutViewport}>
-          <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.18em] text-brand uppercase">
-            <span className="inline-block h-px w-8 bg-brand" aria-hidden />
-            How we work
-          </p>
-          <h2 className="mt-3 max-w-2xl font-heading text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]">
-            Vision and mission, in practice.
-          </h2>
-        </Reveal>
-
+    <section className="border-t border-border bg-background">
+      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:py-14">
         <RevealStagger
-          className="mt-8 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2"
+          className="grid gap-5 text-center sm:grid-cols-2 sm:gap-10"
           viewport={aboutViewport}
         >
-          {values.map((value, index) => {
-            const Icon = value.icon;
-            return (
-              <RevealItem key={value.label}>
-                <motion.article
-                  whileHover={reduceMotion ? undefined : { y: -4 }}
-                  transition={{ duration: 0.35, ease: easeOut }}
-                  className="group relative h-full overflow-hidden bg-background px-6 py-8 sm:px-8 sm:py-10"
-                >
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute -top-6 right-4 font-heading text-[7rem] font-semibold leading-none text-foreground/[0.04] sm:text-[9rem]"
-                  >
-                    “
-                  </span>
-                  <span className="absolute top-0 left-0 h-[3px] w-0 bg-brand transition-[width] duration-500 ease-out group-hover:w-full" />
+          <RevealItem className="mx-auto max-w-md">
+            <h3 className="overflow-hidden font-heading text-2xl font-semibold tracking-tight text-[#EF363B] sm:text-3xl">
+              <motion.span
+                className="inline-block"
+                variants={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        hidden: { y: "110%" },
+                        show: {
+                          y: "0%",
+                          transition: { duration: 0.55, ease: easeOut },
+                        },
+                      }
+                }
+              >
+                Vision
+              </motion.span>
+            </h3>
+            <motion.span
+              aria-hidden
+              className="mx-auto mt-2 block h-px w-10 origin-center bg-[#EF363B]"
+              variants={
+                reduceMotion
+                  ? undefined
+                  : {
+                      hidden: { scaleX: 0 },
+                      show: {
+                        scaleX: 1,
+                        transition: {
+                          duration: 0.45,
+                          delay: 0.12,
+                          ease: easeOut,
+                        },
+                      },
+                    }
+              }
+            />
+            <p className="mt-2 text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+              Put the right CAD and engineering tools in every team that wants
+              to lead its industry.
+            </p>
+          </RevealItem>
+          <RevealItem className="mx-auto max-w-md">
+            <h3 className="overflow-hidden font-heading text-2xl font-semibold tracking-tight text-[#EF363B] sm:text-3xl">
+              <motion.span
+                className="inline-block"
+                variants={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        hidden: { y: "110%" },
+                        show: {
+                          y: "0%",
+                          transition: { duration: 0.55, ease: easeOut },
+                        },
+                      }
+                }
+              >
+                Mission
+              </motion.span>
+            </h3>
+            <motion.span
+              aria-hidden
+              className="mx-auto mt-2 block h-px w-10 origin-center bg-[#EF363B]"
+              variants={
+                reduceMotion
+                  ? undefined
+                  : {
+                      hidden: { scaleX: 0 },
+                      show: {
+                        scaleX: 1,
+                        transition: {
+                          duration: 0.45,
+                          delay: 0.12,
+                          ease: easeOut,
+                        },
+                      },
+                    }
+              }
+            />
+            <p className="mt-2 text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+              Earn trust with deep AEC knowledge, keep clients ahead of the
+              field, and meet the next challenge with the right tools.
+            </p>
+          </RevealItem>
+        </RevealStagger>
 
-                  <div className="flex items-center gap-3">
-                    <span className="flex size-9 items-center justify-center border border-border bg-muted text-brand">
-                      <Icon className="size-4" aria-hidden />
-                    </span>
-                    <p className="text-[11px] font-semibold tracking-[0.18em] text-brand uppercase">
-                      {String(index + 1).padStart(2, "0")} · {value.label}
-                    </p>
-                  </div>
-
-                  <blockquote className="relative mt-6 max-w-md font-heading text-xl font-medium leading-snug tracking-tight text-foreground sm:text-2xl sm:leading-snug">
-                    {value.quote}
-                  </blockquote>
-                </motion.article>
-              </RevealItem>
-            );
-          })}
+        <RevealStagger
+          className="mt-8 grid grid-cols-3 border-t border-border pt-6"
+          viewport={aboutViewport}
+        >
+          {facts.map((fact) => (
+            <RevealItem
+              key={fact.label}
+              className="border-l border-border px-4 first:border-l-0 first:pl-0 sm:px-8 sm:first:pl-0"
+            >
+              <p className="font-heading text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                {fact.kind === "count" ? (
+                  <CountUp
+                    to={fact.to}
+                    grouped={fact.grouped}
+                    suffix={fact.suffix}
+                  />
+                ) : (
+                  fact.display
+                )}
+              </p>
+              <p className="mt-1 text-[11px] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+                {fact.label}
+              </p>
+            </RevealItem>
+          ))}
         </RevealStagger>
       </div>
     </section>

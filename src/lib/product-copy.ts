@@ -62,6 +62,43 @@ const capabilityImages: Record<CatalogProduct["category"], string[]> = {
 };
 
 const extras: Record<string, ProductExtra> = {
+  "bentley-systems": {
+    overviewTitle: "Infrastructure engineering on one connected platform",
+    overviewBody:
+      "Bentley Systems is infrastructure engineering, asset management and digital project delivery technology. From structural analysis and civil design through construction sequencing, it is the foundation Synergic licences and supports for infrastructure teams in India.",
+    benefits: [
+      {
+        title: "Infrastructure engineering",
+        body: "Design and analyse roads, rail, buildings, water networks, and industrial assets with applications used on live infrastructure programmes.",
+      },
+      {
+        title: "Asset management",
+        body: "Keep models, drawings, and asset data in the same digital thread so owners and consultants can operate what they designed.",
+      },
+      {
+        title: "Digital project delivery",
+        body: "Move from survey and analysis to construction-ready deliverables without rebuilding the project in a second system.",
+      },
+    ],
+    capabilities: [
+      {
+        title: "Civil, structural, and water in one stack",
+        body: "OpenRoads, STAAD.Pro, WaterGEMS, and related applications cover the disciplines infrastructure offices actually run.",
+      },
+      {
+        title: "From design into construction",
+        body: "SYNCHRO and connected BIM workflows take the model from the design office onto the programme and the site.",
+      },
+      {
+        title: "Digital twins for operating assets",
+        body: "Asset management tools keep the as-built record useful after handover, not only during design.",
+      },
+      {
+        title: "Licensed in India through Synergic",
+        body: "Bentley Systems through Synergic with Indian commercial terms, onboarding, and a team that knows the AEC workflow.",
+      },
+    ],
+  },
   "staad-pro": {
     overviewTitle: "3D structural analysis that teams trust on live projects",
     overviewBody:
@@ -544,9 +581,9 @@ const extras: Record<string, ProductExtra> = {
     ],
   },
   "bricscad-pro": {
-    overviewTitle: "Professional 2D and 3D CAD, without the lock-in",
+    overviewTitle: "Professional CAD and design for modern engineering workflows",
     overviewBody:
-      "BricsCAD Pro is a DWG-native platform for drafting and 3D solid modelling. Familiar commands for production teams that want professional CAD without being trapped on a single vendor's licence path.",
+      "BricsCAD is professional CAD and design technology for modern engineering workflows. A DWG-native platform for 2D drafting, 3D modelling, and BIM production — familiar commands without being trapped on a single vendor's licence path.",
     benefits: [
       {
         title: "Full DWG compatibility",
@@ -576,7 +613,7 @@ const extras: Record<string, ProductExtra> = {
       },
       {
         title: "Licensed through Synergic",
-        body: "BricsCAD Pro with Indian terms, training, and a partner on call.",
+        body: "BricsCAD with Indian terms, training, and a partner on call.",
       },
     ],
   },
@@ -618,9 +655,9 @@ const extras: Record<string, ProductExtra> = {
     ],
   },
   gstarcad: {
-    overviewTitle: "Cost-effective DWG CAD for production offices",
+    overviewTitle: "DWG-based CAD for architecture, engineering and design",
     overviewBody:
-      "GstarCAD is a DWG-compatible CAD application for architecture and engineering offices that need dependable drafting at scale. Everyday production without inflating the licence bill.",
+      "GstarCAD is a DWG-based CAD solution for architecture, engineering and design organizations. Dependable production drafting at scale — everyday drawings without inflating the licence bill.",
     benefits: [
       {
         title: "DWG for everyday production",
@@ -655,9 +692,9 @@ const extras: Record<string, ProductExtra> = {
     ],
   },
   "ax3000-mep": {
-    overviewTitle: "Building services, energy, and coordination in one MEP workflow",
+    overviewTitle: "MEP design and building services in one engineering workflow",
     overviewBody:
-      "Ax3000 MEP covers HVAC, electrical, and plumbing design with energy analysis and visualisation. Built for building-services teams that need calculations and coordination, not only 3D geometry.",
+      "AX3000 MEP is engineering software for MEP design and building services workflows. HVAC, electrical, and plumbing with energy analysis and visualisation — built for teams that need calculations and coordination, not only 3D geometry.",
     benefits: [
       {
         title: "HVAC, electrical, and plumbing",
@@ -687,7 +724,7 @@ const extras: Record<string, ProductExtra> = {
       },
       {
         title: "Licensed through Synergic",
-        body: "Ax3000 MEP with Indian commercial terms and a partner who supports CAD and MEP desks.",
+        body: "AX3000 MEP with Indian commercial terms and a partner who supports CAD and MEP desks.",
       },
     ],
   },

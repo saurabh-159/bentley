@@ -20,101 +20,46 @@ import {
 import { cn } from "@/lib/utils";
 import { Reveal, RevealItem, RevealStagger } from "./reveal";
 import { SectionHeading } from "./section-heading";
-import { categoryPath, productPath, type ProductCategory } from "@/lib/catalog";
+import {
+  catalog,
+  categoryPath,
+  productPath,
+  softwarePortfolio,
+  type ProductCategory,
+} from "@/lib/catalog";
 
-type Category = "All" | "Structural" | "Civil" | "Water & build" | "CAD & MEP";
+type Category = "All" | (typeof softwarePortfolio)[number]["category"];
 
-const products = [
-  {
-    name: "STAAD.Pro",
-    line: "3D structural analysis and design",
-    category: "Structural",
-    featured: true,
+const products = softwarePortfolio.map((item) => {
+  const product = catalog.find((entry) => entry.name === item.name);
+  return {
+    name: item.name,
+    line: item.line,
+    category: item.category,
+    featured: item.featured,
     image:
+      product?.image ??
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Steel structure under construction",
-  },
-  {
-    name: "OpenRoads Designer",
-    line: "End-to-end detailed road design",
-    category: "Civil",
-    featured: true,
-    image:
-      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Highway corridor at dusk",
-  },
-  {
-    name: "SYNCHRO",
-    line: "4D construction planning and management",
-    category: "Water & build",
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Construction site with tower cranes",
-  },
-  {
-    name: "WaterGEMS",
-    line: "Water distribution analysis and design",
-    category: "Water & build",
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Water infrastructure and treatment plant",
-  },
-  {
-    name: "BricsCAD Pro",
-    line: "Professional 2D and 3D CAD, without compromise",
-    category: "CAD & MEP",
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Engineer working at a CAD workstation",
-  },
-  {
-    name: "Structural WorkSuite",
-    line: "Complete structural analysis toolkit",
-    category: "Structural",
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Modern concrete and glass building structure",
-  },
-  {
-    name: "OpenRail Designer",
-    line: "BIM-ready railway corridor design",
-    category: "Civil",
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Railway tracks stretching into the distance",
-  },
-  {
-    name: "Ax3000 MEP",
-    line: "Building services, energy, and VR workflows",
-    category: "CAD & MEP",
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Mechanical building services in a plant room",
-  },
-] as const;
+    imageAlt: product?.imageAlt ?? item.name,
+  };
+});
 
 const categories: {
   id: Category;
   icon: typeof Layers;
 }[] = [
   { id: "All", icon: Layers },
-  { id: "Structural", icon: Building2 },
-  { id: "Civil", icon: Route },
-  { id: "Water & build", icon: Droplets },
-  { id: "CAD & MEP", icon: Box },
+  { id: "Infrastructure Engineering", icon: Route },
+  { id: "CAD / BIM", icon: Box },
+  { id: "Professional CAD", icon: Building2 },
+  { id: "MEP Engineering", icon: Droplets },
 ];
 
 const categoryHrefs: Record<Exclude<Category, "All">, ProductCategory> = {
-  Structural: "Structural analysis and detailing",
-  Civil: "Civil and transportation",
-  "Water & build": "Water and construction",
-  "CAD & MEP": "CAD and MEP",
+  "Infrastructure Engineering": "Civil and transportation",
+  "CAD / BIM": "CAD and MEP",
+  "Professional CAD": "CAD and MEP",
+  "MEP Engineering": "CAD and MEP",
 };
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -126,7 +71,7 @@ function countFor(id: Category) {
 
 /**
  * Products
- * Content: Synergic — STAAD.Pro, WorkSuite, OpenRoads, Ferrovia, SYNCHRO, Urbano, BricsCAD, Ax3000
+ * Content: Synergic — Bentley Systems, BricsCAD, GstarCAD, AX3000 MEP
  * UI: Bentley — large feature tiles, product name + one line, hover image, "Explore software"
  */
 export function Products() {
@@ -142,9 +87,9 @@ export function Products() {
       <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
         <Reveal>
           <SectionHeading
-            label="Software"
-            title="Engineering tools for every discipline"
-            description="From structural analysis to roads, water, CAD, and construction sequencing — licensed and supported in India."
+            label="Products"
+            title="Explore Our Software Portfolio"
+            description="Four technology foundations. One independent, engineering-focused approach to helping you choose what fits."
             action={
               <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
                 <Link

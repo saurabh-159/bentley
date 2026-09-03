@@ -58,8 +58,10 @@ import { cn } from "@/lib/utils";
 import {
   categoryNav,
   featuredProducts,
+  industryNav,
   productExpandLinks,
-  productGroups,
+  resourceNav,
+  serviceNav,
   solutionFeature,
   solutions,
   whoWeServe,
@@ -151,18 +153,14 @@ export function Header() {
           className="hidden flex-1 justify-center lg:flex"
         >
           <NavigationMenuList onMouseLeave={() => setHovered(null)}>
-            <NavigationMenuItem onMouseEnter={() => setHovered("home")}>
-              <NavigationMenuLink href="/" className={navItemClass}>
-                Home
-                <NavUnderline show={hovered === "home"} />
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem onMouseEnter={() => setHovered("about")}>
-              <NavigationMenuLink href="/about" className={navItemClass}>
-                About
-                <NavUnderline show={hovered === "about"} />
-              </NavigationMenuLink>
+            <NavigationMenuItem onMouseEnter={() => setHovered("solutions")}>
+              <NavigationMenuTrigger className={navItemClass}>
+                Solutions
+                <NavUnderline show={hovered === "solutions"} />
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="p-0">
+                <SolutionsMenu />
+              </NavigationMenuContent>
             </NavigationMenuItem>
 
             <NavigationMenuItem onMouseEnter={() => setHovered("products")}>
@@ -175,6 +173,43 @@ export function Header() {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
+            <NavigationMenuItem onMouseEnter={() => setHovered("services")}>
+              <NavMenuTriggerLink href="/#services" className={navItemClass}>
+                Services
+                <NavUnderline show={hovered === "services"} />
+              </NavMenuTriggerLink>
+              <NavigationMenuContent className="p-0">
+                <SimpleListMenu items={serviceNav} />
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem onMouseEnter={() => setHovered("industries")}>
+              <NavMenuTriggerLink href="/#industries" className={navItemClass}>
+                Industries
+                <NavUnderline show={hovered === "industries"} />
+              </NavMenuTriggerLink>
+              <NavigationMenuContent className="p-0">
+                <SimpleListMenu items={industryNav} />
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem onMouseEnter={() => setHovered("resources")}>
+              <NavMenuTriggerLink href="/#resources" className={navItemClass}>
+                Resources
+                <NavUnderline show={hovered === "resources"} />
+              </NavMenuTriggerLink>
+              <NavigationMenuContent className="p-0">
+                <SimpleListMenu items={resourceNav} />
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem onMouseEnter={() => setHovered("about")}>
+              <NavigationMenuLink href="/about" className={navItemClass}>
+                About
+                <NavUnderline show={hovered === "about"} />
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
             <NavigationMenuItem onMouseEnter={() => setHovered("categories")}>
               <NavMenuTriggerLink href="/categories" className={navItemClass}>
                 Categories
@@ -183,30 +218,6 @@ export function Header() {
               <NavigationMenuContent className="p-0">
                 <CategoriesMenu />
               </NavigationMenuContent>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem onMouseEnter={() => setHovered("solutions")}>
-              <NavigationMenuTrigger className={navItemClass}>
-                Solutions
-                <NavUnderline show={hovered === "solutions"} />
-              </NavigationMenuTrigger>
-              <NavigationMenuContent className="p-0">
-                <SolutionsMenu />
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem onMouseEnter={() => setHovered("career")}>
-              <NavigationMenuLink href="/#career" className={navItemClass}>
-                Career
-                <NavUnderline show={hovered === "career"} />
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem onMouseEnter={() => setHovered("contact")}>
-              <NavigationMenuLink href="/#contact" className={navItemClass}>
-                Contact
-                <NavUnderline show={hovered === "contact"} />
-              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -277,35 +288,39 @@ export function Header() {
 
               <ScrollArea className="flex-1">
                 <nav className="flex flex-col px-4 py-2">
-                  <MobileLink href="/" onClick={() => setMobileOpen(false)}>
-                    Home
-                  </MobileLink>
-                  <MobileLink href="/about" onClick={() => setMobileOpen(false)}>
-                    About
-                  </MobileLink>
-
                   <Accordion>
+                    <AccordionItem value="solutions" className="border-border">
+                      <AccordionTrigger className="text-base text-foreground hover:no-underline">
+                        Solutions
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-3 [&_a]:no-underline">
+                        {solutions.map((item) => (
+                          <MobileLink
+                            key={item.label}
+                            href={item.href}
+                            nested
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {item.label}
+                          </MobileLink>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+
                     <AccordionItem value="products" className="border-border">
                       <AccordionTrigger className="text-base text-foreground hover:no-underline">
                         Products
                       </AccordionTrigger>
                       <AccordionContent className="pb-3 [&_a]:no-underline">
-                        {productGroups.map((group) => (
-                          <div key={group.title} className="mb-3">
-                            <p className="mb-1 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                              {group.title}
-                            </p>
-                            {group.items.map((item) => (
-                              <MobileLink
-                                key={item.label}
-                                href={item.href}
-                                nested
-                                onClick={() => setMobileOpen(false)}
-                              >
-                                {item.label}
-                              </MobileLink>
-                            ))}
-                          </div>
+                        {featuredProducts.map((item) => (
+                          <MobileLink
+                            key={item.label}
+                            href={item.href}
+                            nested
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {item.label}
+                          </MobileLink>
                         ))}
                         <MobileLink
                           href="/products"
@@ -317,6 +332,66 @@ export function Header() {
                       </AccordionContent>
                     </AccordionItem>
 
+                    <AccordionItem value="services" className="border-border">
+                      <AccordionTrigger className="text-base text-foreground hover:no-underline">
+                        Services
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-3 [&_a]:no-underline">
+                        {serviceNav.map((item) => (
+                          <MobileLink
+                            key={item.label}
+                            href={item.href}
+                            nested
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {item.label}
+                          </MobileLink>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="industries" className="border-border">
+                      <AccordionTrigger className="text-base text-foreground hover:no-underline">
+                        Industries
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-3 [&_a]:no-underline">
+                        {industryNav.map((item) => (
+                          <MobileLink
+                            key={item.label}
+                            href={item.href}
+                            nested
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {item.label}
+                          </MobileLink>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="resources" className="border-border">
+                      <AccordionTrigger className="text-base text-foreground hover:no-underline">
+                        Resources
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-3 [&_a]:no-underline">
+                        {resourceNav.map((item) => (
+                          <MobileLink
+                            key={item.label}
+                            href={item.href}
+                            nested
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {item.label}
+                          </MobileLink>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+
+                  <MobileLink href="/about" onClick={() => setMobileOpen(false)}>
+                    About
+                  </MobileLink>
+
+                  <Accordion>
                     <AccordionItem value="categories" className="border-border">
                       <AccordionTrigger className="text-base text-foreground hover:no-underline">
                         Categories
@@ -341,32 +416,7 @@ export function Header() {
                         </MobileLink>
                       </AccordionContent>
                     </AccordionItem>
-
-                    <AccordionItem value="solutions" className="border-border">
-                      <AccordionTrigger className="text-base text-foreground hover:no-underline">
-                        Solutions
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-3 [&_a]:no-underline">
-                        {solutions.map((item) => (
-                          <MobileLink
-                            key={item.label}
-                            href={item.href}
-                            nested
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            {item.label}
-                          </MobileLink>
-                        ))}
-                      </AccordionContent>
-                    </AccordionItem>
                   </Accordion>
-
-                  <MobileLink href="/#career" onClick={() => setMobileOpen(false)}>
-                    Career
-                  </MobileLink>
-                  <MobileLink href="/#contact" onClick={() => setMobileOpen(false)}>
-                    Contact
-                  </MobileLink>
                 </nav>
               </ScrollArea>
 
@@ -431,6 +481,34 @@ function NavUnderline({ show }: { show: boolean }) {
       className="absolute inset-x-3 bottom-2 h-[2.5px] bg-brand"
       transition={{ type: "spring", stiffness: 480, damping: 34 }}
     />
+  );
+}
+
+function SimpleListMenu({
+  items,
+}: {
+  items: readonly { label: string; href: string }[];
+}) {
+  return (
+    <motion.div
+      variants={panelVariants}
+      initial="hidden"
+      animate="show"
+      className="min-w-[18rem] px-6 py-5"
+    >
+      <ul>
+        {items.map((item) => (
+          <motion.li key={item.label} variants={panelItemVariants}>
+            <NavigationMenuLink
+              href={item.href}
+              className="rounded-none px-0 py-2.5 text-[15px] font-medium text-foreground/80 hover:bg-transparent hover:text-brand"
+            >
+              {item.label}
+            </NavigationMenuLink>
+          </motion.li>
+        ))}
+      </ul>
+    </motion.div>
   );
 }
 

@@ -13,8 +13,8 @@ import {
   ArrowRight,
   Box,
   Building2,
-  Droplets,
-  HardHat,
+  Cog,
+  PenTool,
   Route,
   Wind,
 } from "lucide-react";
@@ -25,17 +25,43 @@ import { productPath } from "@/lib/catalog";
 
 const industries = [
   {
-    name: "Architectural",
-    challenge: "Coordinate design from concept through documentation.",
+    name: "CAD & Drafting",
+    category: "Design",
+    challenge:
+      "Professional CAD solutions for 2D drafting, 3D design, documentation and engineering production.",
+    image:
+      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Engineer working at a CAD workstation",
+    icon: PenTool,
+    software: ["BricsCAD", "BricsCAD Lite", "GstarCAD"],
+  },
+  {
+    name: "BIM & Building Design",
+    category: "Buildings",
+    challenge:
+      "Improve coordination, design quality and collaboration across building projects.",
     image:
       "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Contemporary architectural facade",
     icon: Building2,
-    software: ["BricsCAD Pro", "OpenBuildings"],
+    software: ["BricsCAD", "OpenBuildings"],
   },
   {
-    name: "Structural",
-    challenge: "Analyze and design buildings and industrial structures with confidence.",
+    name: "Civil & Infrastructure",
+    category: "Infrastructure",
+    challenge:
+      "Design, analyze and deliver roads, highways, utilities and infrastructure projects.",
+    image:
+      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Highway corridor at dusk",
+    icon: Route,
+    software: ["OpenRoads Designer", "OpenRail Designer", "Ferrovia"],
+  },
+  {
+    name: "Structural Engineering",
+    category: "Structural",
+    challenge:
+      "Powerful tools for structural analysis, design, documentation and engineering workflows.",
     image:
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Structural steel frame",
@@ -43,40 +69,26 @@ const industries = [
     software: ["STAAD.Pro", "Structural WorkSuite"],
   },
   {
-    name: "Rail & Road",
-    challenge: "Deliver corridors, junctions, and rail alignments as one model.",
-    image:
-      "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Railway corridor",
-    icon: Route,
-    software: ["OpenRoads Designer", "OpenRail Designer", "Ferrovia"],
-  },
-  {
-    name: "MEP",
-    challenge: "Design building services that clash less and commission faster.",
+    name: "MEP Design",
+    category: "Building Services",
+    challenge:
+      "Design, coordinate and document HVAC, electrical and plumbing systems for building projects.",
     image:
       "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Mechanical plant room",
     icon: Wind,
-    software: ["Ax3000 MEP", "BricsCAD Pro"],
+    software: ["AX3000 MEP", "BricsCAD"],
   },
   {
-    name: "Construction",
-    challenge: "Sequence the site in 4D before a single pour.",
+    name: "Mechanical Design",
+    category: "Manufacturing",
+    challenge:
+      "Professional tools for 3D mechanical design, assemblies and manufacturing production.",
     image:
-      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Active construction site",
-    icon: HardHat,
-    software: ["SYNCHRO"],
-  },
-  {
-    name: "Water",
-    challenge: "Model networks, plants, and flood risk as a connected system.",
-    image:
-      "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Water infrastructure and treatment plant",
-    icon: Droplets,
-    software: ["WaterGEMS", "Urbano"],
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Engineer reviewing a mechanical design on screen",
+    icon: Cog,
+    software: ["BricsCAD", "GstarCAD"],
   },
 ] as const;
 
@@ -85,7 +97,8 @@ const CYCLE_MS = 4000;
 
 /**
  * Solutions
- * Content: Synergic — Architectural, Structural, Rail & Road, MEP, Construction, Water
+ * Content: CAD & Drafting, BIM & Building Design, Civil & Infrastructure,
+ * Structural Engineering, MEP Design, Mechanical Design
  * UI: Bentley — industry switcher, live visual, software toolkit, Motion
  */
 export function Solutions() {
@@ -257,7 +270,7 @@ export function Solutions() {
               <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-5">
                 <span className="inline-flex items-center gap-1.5 border border-white/35 bg-black/25 px-2 py-0.5 text-[10px] font-semibold tracking-[0.16em] text-white/90 uppercase backdrop-blur-sm">
                   <Icon className="size-3" aria-hidden />
-                  {current.name}
+                  {current.category}
                 </span>
                 <span
                   aria-hidden

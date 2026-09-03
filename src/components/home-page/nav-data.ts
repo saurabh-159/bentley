@@ -4,6 +4,7 @@ import {
   categoryPath,
   productCategories,
   productPath,
+  softwarePortfolio,
 } from "@/lib/catalog";
 
 export type NavLink = {
@@ -27,6 +28,7 @@ export const productGroups: {
   {
     title: "Civil & Transport",
     items: [
+      { label: "Bentley Systems", href: productPath("Bentley Systems") },
       { label: "OpenRoads Designer", href: productPath("OpenRoads Designer") },
       { label: "OpenRail Designer", href: productPath("OpenRail Designer") },
       { label: "OpenBridge Designer", href: productPath("OpenBridge Designer") },
@@ -46,10 +48,10 @@ export const productGroups: {
   {
     title: "CAD & MEP",
     items: [
-      { label: "BricsCAD Pro", href: productPath("BricsCAD Pro") },
+      { label: "BricsCAD", href: productPath("BricsCAD") },
       { label: "BricsCAD Lite", href: productPath("BricsCAD Lite") },
       { label: "GstarCAD", href: productPath("GstarCAD") },
-      { label: "Ax3000 MEP", href: productPath("Ax3000 MEP") },
+      { label: "AX3000 MEP", href: productPath("AX3000 MEP") },
     ],
   },
 ];
@@ -70,17 +72,11 @@ export const categoryLinks = categoryNav.map(({ label, href, description }) => (
   description,
 }));
 
-export const featuredProducts = [
-  { label: "STAAD.Pro", href: productPath("STAAD.Pro"), description: "Structural analysis and design" },
-  { label: "SYNCHRO", href: productPath("SYNCHRO"), description: "4D construction planning" },
-  { label: "WaterGEMS", href: productPath("WaterGEMS"), description: "Water distribution modeling" },
-  { label: "OpenRoads Designer", href: productPath("OpenRoads Designer"), description: "Civil and road design" },
-  { label: "BricsCAD Pro", href: productPath("BricsCAD Pro"), description: "DWG-based CAD drafting" },
-  { label: "Structural WorkSuite", href: productPath("Structural WorkSuite"), description: "Complete structural toolkit" },
-  { label: "STAAD Foundation Advanced", href: productPath("STAAD Foundation Advanced"), description: "Foundation analysis and design" },
-  { label: "OpenRail Designer", href: productPath("OpenRail Designer"), description: "Rail corridor design" },
-  { label: "Ax3000 MEP", href: productPath("Ax3000 MEP"), description: "Building services design" },
-] as const;
+export const featuredProducts = softwarePortfolio.map((item) => ({
+  label: item.name,
+  href: productPath(item.name),
+  description: item.line,
+}));
 
 export const productExpandLinks = [
   {
@@ -106,7 +102,7 @@ export const productExpandLinks = [
   {
     label: "Professional services",
     description: "Get expert project advice",
-    href: "/#contact",
+    href: "/#services",
   },
 ] as const;
 
@@ -162,6 +158,32 @@ export const solutionFeature = {
     },
   ],
 } as const;
+
+export const serviceNav = [
+  { label: "Software Licensing", href: "/#services" },
+  { label: "Implementation", href: "/#services" },
+  { label: "Training", href: "/#services" },
+  { label: "Technical Support", href: "/#services" },
+  { label: "CAD/BIM Consulting", href: "/#services" },
+  { label: "Migration & Deployment", href: "/#services" },
+] as const;
+
+export const industryNav = [
+  { label: "CAD & Drafting", href: "/#industries" },
+  { label: "BIM & Building Design", href: "/#industries" },
+  { label: "Civil & Infrastructure", href: "/#industries" },
+  { label: "Structural Engineering", href: "/#industries" },
+  { label: "MEP Design", href: "/#industries" },
+  { label: "Mechanical Design", href: "/#industries" },
+] as const;
+
+export const resourceNav = [
+  { label: "Resource center", href: "/#resources" },
+  { label: "News & insights", href: "/#resources" },
+  { label: "Watch the latest webinar on using MCP", href: "/#resources" },
+  { label: "See where infrastructure and AI meet", href: "/#resources" },
+  { label: "Learn about engineering workflows", href: "/#resources" },
+] as const;
 
 export const companyLinks = [
   { label: "About us", href: "/about" },
